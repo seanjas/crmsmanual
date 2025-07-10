@@ -2,6 +2,7 @@ services:
   - type: web
     name: manualcrms
     env: php
+    plan: free
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       npm install
@@ -9,7 +10,8 @@ services:
       chmod +x deploy.sh
       ./deploy.sh
     startCommand: |
-      php artisan serve --host=0.0.0.0 --port=$PORT --env=production
+      chmod +x start.sh
+      ./start.sh
     envVars:
       - key: APP_ENV
         value: production
@@ -35,3 +37,5 @@ services:
         value: warning
       - key: QUEUE_CONNECTION
         value: sync
+      - key: NODE_ENV
+        value: production
